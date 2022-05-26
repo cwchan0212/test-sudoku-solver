@@ -23,19 +23,42 @@ matrix = [  [5,3,0,0,7,0,0,0,0],
             [0,0,0,0,8,0,0,7,9]
             ]
 
-def numOfSpace(mat):
-    space = 0;
+def validSudo(mat):
+
+    rows = collections.defaultdict(set)
+    cols = collections.defaultdict(set)
+    squares = collections.defaultdict(set)
+
+    for c in range(9):
+        for r in range(9):
+            if mat[r][c] == 0:
+                continue
+            if (mat[r][c] in rows[r] or mat[r][c] in cols[c] or mat[r][c] in squares[r//3, c//3]):
+                return False
+
+            cols[c].add(mat[r][c])
+            rows[r].add(mat[r][c])
+            squares[r//3, c//3].add(mat[r][c])
+
+    return True
+
+
+def spaceCount(mat):
+    size = 0;
     for i in range(len(mat)):           # row
         for j in range(len(mat[i])):    # col
             if mat[i][j] == 0:
                 #print(mat[i][j])
-                space +=1
+                size +=1
             #sq[i][j] = question[i][j]
-    return space
+    return size
 
 def filled(mat):
     nums = []
-    space = numOfSpace(mat)
+    space = spaceCount(mat)
+
+    if not validSudo(mat):
+        return
 
     if space > 0:
         for i in range(len(mat)):           # row
@@ -91,30 +114,14 @@ def unusedNums(mat, i, j):
                  cellList.remove(mat[x][j])
     return cellList
 
-rows = collections.defaultdict(set)
-cols = collections.defaultdict(set)
-squares = collections.defaultdict(set)
+
 
 num = [1,2,3,4,5,6,7,8,9]
 
-n = numOfSpace(matrix)
+n = spaceCount(matrix)
 #print(n)
 
 r = 0
 c = 4
 unusedNums(matrix, r, c)
 filled(matrix)
-
-
-# def validSudo:
-#     for c in range(9):
-#         for r in range(9):
-#             if matrix[r][c] == 0:
-#                 continue
-#             if (matrix[r][c] in rows[r] or matrix[r][c] in cols[c] or matrix[r][c] in squares[r//3, c//3]):
-#                 return False
-
-#             cols[c].add(matrix[r][c])
-#             rows[r].add(matrix[r][c])
-#             squares[r//3, c//3].add(matrix[r][c])
-#     return True
