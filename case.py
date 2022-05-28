@@ -16,6 +16,9 @@ class Sukodu:
 #             [3,4,5,2,8,6,1,7,9]
 #              ]
 
+
+
+
     def validSudo(self):
 
         rows = collections.defaultdict(set)
@@ -37,7 +40,7 @@ class Sukodu:
 
 
     def spaceCount(self, mat):
-        size = 0;
+        size = 0
         for i in range(len(mat)):           # row
             for j in range(len(mat[i])):    # col
                 if mat[i][j] == 0:
@@ -49,7 +52,7 @@ class Sukodu:
     def filled(self):
         nums = []
         space = self.spaceCount(self.matrix)
-
+        fillcnt = 0
         if not self.validSudo():
             return
 
@@ -60,6 +63,8 @@ class Sukodu:
                         nums = self.unusedNums(i, j)
                         if len(nums) == 1:
                             self.matrix[i][j] = nums[0]
+                            print("filled:", nums[0], "[", i+1, ",", j+1, "]")
+                            fillcnt += 1
                             #print(i, j, nums[0])
                         else:
                             continue
@@ -67,7 +72,7 @@ class Sukodu:
             for i in range(len(self.matrix)):
                 print(self.matrix[i])
 
-            print("-------")
+            print("-------", fillcnt)
             self.filled()
 
 
@@ -131,3 +136,6 @@ if __name__ == "__main__":
     c = 4
     game.unusedNums(r, c)
     game.filled()
+
+
+
