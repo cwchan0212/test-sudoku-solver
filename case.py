@@ -1,3 +1,5 @@
+from os import unsetenv
+import random
 import collections
 
 class Sukodu:
@@ -19,7 +21,7 @@ class Sukodu:
 
 
 
-    def validSudo(self):
+    def validSudoku(self):
 
         rows = collections.defaultdict(set)
         cols = collections.defaultdict(set)
@@ -38,7 +40,6 @@ class Sukodu:
 
         return True
 
-
     def spaceCount(self, mat):
         size = 0
         for i in range(len(mat)):           # row
@@ -53,7 +54,7 @@ class Sukodu:
         nums = []
         space = self.spaceCount(self.matrix)
         fillcnt = 0
-        if not self.validSudo():
+        if not self.validSudoku():
             return
 
         if space > 0:
@@ -63,7 +64,7 @@ class Sukodu:
                         nums = self.unusedNums(i, j)
                         if len(nums) == 1:
                             self.matrix[i][j] = nums[0]
-                            print("filled:", nums[0], "[", i+1, ",", j+1, "]")
+##                            print("filled:", nums[0], "[", i+1, ",", j+1, "]")
                             fillcnt += 1
                             #print(i, j, nums[0])
                         else:
@@ -73,12 +74,17 @@ class Sukodu:
                 print(self.matrix[i])
 
             print("-------", fillcnt)
-            self.filled()
+
+            
+            if fillcnt > 0:
+                self.filled()
+
+        return space
 
 
     def unusedNums(self, i, j):
         cellList = [1,2,3,4,5,6,7,8,9]
-        t = l = 0
+        t = l = 0   # top & left
         if (i // 3) == 0:
             t = 0
         elif (i //3) == 1:
@@ -112,32 +118,71 @@ class Sukodu:
                     cellList.remove(self.matrix[x][j])
         return cellList
 
+    def genSudoku(self):
+        
+        # try 10 times to gen valid sudoku puzzle
+        #k = self.matrix.copy()
+
+        for i in range(20):
+            self.matrix = [[0] * 9 for _ in range(9)]
+            print ("gen", i)
+            pick = random.randint(30,35)
+            val = 0
+            bolIsValid = False
+            while (pick > 0):
+                r = random.randint(0,8)
+                c = random.randint(0,8)
+                if self.matrix[r][c] == 0:
+                    num = self.unusedNums(r,c)
+                    val = random.choice(num)
+                    print(num, val)
+                    self.matrix[r][c] = val
+                    if self.validSudoku() == False:
+                        self.matrix[r][c] = 0
+                    else:
+                        pick -= 1
+                else:
+                    continue
+            
+            if self.filled() > 0:
+                #return self.matrix
+                print (i, "Invalid matrix, redo.")
+                
+            else:
+                print (i, "VALID")
+                return self.matrix 
+                
+        for i in range(9):
+            print (self.matrix[i])
+
+def action(n):
+    # Generate new sudoku matrix
+    if n == 0:            
+        matrix = [[0] * 9 for _ in range(9)]
+        for i in range(9):
+            print (matrix[i])
+
+        game = Sukodu(matrix)
+        game.genSudoku()
+
+    # Find solution of sudoku
+    elif n == 1:        
+            matrix = [  [5,3,0,0,7,0,0,0,0],
+                        [6,0,0,1,9,5,0,0,0],
+                        [0,9,8,0,0,0,0,6,0],
+                        [8,0,0,0,6,0,0,0,3],
+                        [4,0,0,8,0,3,0,0,1],
+                        [7,0,0,0,2,0,0,0,6],
+                        [0,6,0,0,0,0,2,8,0],
+                        [0,0,0,4,1,9,0,0,5],
+                        [0,0,0,0,8,0,0,7,9]
+                        ]
+
+            game = Sukodu(matrix)
+            game.filled()
+
+
+
 if __name__ == "__main__":
 
-#   Sample sudoku
-    
-    matrix = [  [5,3,0,0,7,0,0,0,0],
-                [6,0,0,1,9,5,0,0,0],
-                [0,9,8,0,0,0,0,6,0],
-                [8,0,0,0,6,0,0,0,3],
-                [4,0,0,8,0,3,0,0,1],
-                [7,0,0,0,2,0,0,0,6],
-                [0,6,0,0,0,0,2,8,0],
-                [0,0,0,4,1,9,0,0,5],
-                [0,0,0,0,8,0,0,7,9]
-                ]
-    
-    game = Sukodu(matrix)
-
-    num = [1,2,3,4,5,6,7,8,9]
-
-    n = game.spaceCount(matrix)
-    print(n)
-
-    r = 0
-    c = 4
-    game.unusedNums(r, c)
-    game.filled()
-
-
-
+    action(0)
