@@ -18,6 +18,9 @@ class Sukodu:
 #             [3,4,5,2,8,6,1,7,9]
 #              ]
 
+
+
+
     def validSudoku(self):
 
         rows = collections.defaultdict(set)
@@ -120,7 +123,7 @@ class Sukodu:
         # try 10 times to gen valid sudoku puzzle
         #k = self.matrix.copy()
 
-        for i in range(20):
+        for i in range(100):
             self.matrix = [[0] * 9 for _ in range(9)]
             print ("gen", i)
             pick = random.randint(30,35)
@@ -132,7 +135,7 @@ class Sukodu:
                 if self.matrix[r][c] == 0:
                     num = self.unusedNums(r,c)
                     val = random.choice(num)
-                    print(num, val)
+                    #print(num, val)
                     self.matrix[r][c] = val
                     if self.validSudoku() == False:
                         self.matrix[r][c] = 0
@@ -183,3 +186,5 @@ def action(n):
 if __name__ == "__main__":
 
     action(0)
+
+
