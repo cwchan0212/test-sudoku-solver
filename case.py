@@ -18,9 +18,6 @@ class Sukodu:
 #             [3,4,5,2,8,6,1,7,9]
 #              ]
 
-
-
-
     def validSudoku(self):
 
         rows = collections.defaultdict(set)
