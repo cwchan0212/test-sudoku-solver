@@ -118,42 +118,42 @@ class Sukodu:
                     cellList.remove(self.matrix[x][j])
         return cellList
 
-    def genSudoku(self):
+#     def genSudoku(self):
         
-        # try 10 times to gen valid sudoku puzzle
-        #k = self.matrix.copy()
+#         # try 10 times to gen valid sudoku puzzle
+#         #k = self.matrix.copy()
 
-        for i in range(100):
-            self.matrix = [[0] * 9 for _ in range(9)]
-            print ("gen", i)
-            pick = random.randint(30,35)
-            val = 0
-            bolIsValid = False
-            while (pick > 0):
-                r = random.randint(0,8)
-                c = random.randint(0,8)
-                if self.matrix[r][c] == 0:
-                    num = self.unusedNums(r,c)
-                    val = random.choice(num)
-                    #print(num, val)
-                    self.matrix[r][c] = val
-                    if self.validSudoku() == False:
-                        self.matrix[r][c] = 0
-                    else:
-                        pick -= 1
-                else:
-                    continue
+#         for i in range(100):
+#             self.matrix = [[0] * 9 for _ in range(9)]
+#             print ("gen", i)
+#             pick = random.randint(30,35)
+#             val = 0
+#             bolIsValid = False
+#             while (pick > 0):
+#                 r = random.randint(0,8)
+#                 c = random.randint(0,8)
+#                 if self.matrix[r][c] == 0:
+#                     num = self.unusedNums(r,c)
+#                     val = random.choice(num)
+#                     #print(num, val)
+#                     self.matrix[r][c] = val
+#                     if self.validSudoku() == False:
+#                         self.matrix[r][c] = 0
+#                     else:
+#                         pick -= 1
+#                 else:
+#                     continue
             
-            if self.filled() > 0:
-                #return self.matrix
-                print (i, "Invalid matrix, redo.")
+#             if self.filled() > 0:
+#                 #return self.matrix
+#                 print (i, "Invalid matrix, redo.")
                 
-            else:
-                print (i, "VALID")
-                return self.matrix 
+#             else:
+#                 print (i, "VALID")
+#                 return self.matrix 
                 
-        for i in range(9):
-            print (self.matrix[i])
+#         for i in range(9):
+#             print (self.matrix[i])
 
 def action(n):
     # Generate new sudoku matrix
