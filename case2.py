@@ -1,4 +1,5 @@
 from os import unsetenv
+from tkinter import N
 from typing import List
 import random
 import collections
@@ -62,14 +63,27 @@ class Sudoku:
                     return True
 
         for num in range(self.n):
-            if (checkIfSafe(i, j, self.num)):
+            if (self.checkIfSafe(i, j, self.num)):
                 self.mat[i][j] = num
-                if (fillRemaining(i, j+1)):
+                if (self.fillRemaining(i, j+1)):
                     return True
                 self.nat[i][j] = 0
         return False
-# fillRemaining
-# removeKDigits
-# CheckIfSafe
+
+    def removeKDigits(self):
+        count = self.k
+        while (count != 0):
+            cellID = self.randomGenerator(self.n * self.n)-1
+            i = cellID / n
+            j = cellID % 9
+            if (j != 0):
+                j -= 1
+            if (self.mat[i][j] != 0):
+                count -= 1
+                self.mat[i][j] = 0
+            
+    def checkIfSafe(self, i: int. j: int, num: int) -> bool
+        return (unUsedInRow(i, num) and unUsedInCol(j, num) and unUsedInBox(i - i % self.sqn, i - i % self.sqn, num))
+
 # unUsedInRow
 # unUsedInCol
