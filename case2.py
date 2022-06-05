@@ -1,15 +1,16 @@
 from os import unsetenv
 from tkinter import N
 from typing import List
+import math
 import random
 import collections
 
 class Sudoku:
 
-    # matrix = []
-    # n = 0   # no. of columns / rows
-    # sqn = 0 # square root of n
-    # k = 0   # no. of missing digits
+    #matrix = []
+    #n = 0   # no. of columns / rows
+    #sqn = 0 # square root of n
+    #k = 0   # no. of missing digits
 
     def __init__(self, n: int, k: int):
         self.n = n
@@ -19,10 +20,10 @@ class Sudoku:
 
     def fillBox(row: int, col: int):
         num = 0;
-        for i in range(len(sqn)):
-            for j in range(len(sqn)):
-                num = randomGenerator()
-                while (unUsedInBox(top, left, num) == True):
+        for i in range(len(self.sqn)):
+            for j in range(len(self.sqn)):
+                num = self.randomGenerator()
+                while (self.unUsedInBox(top, left, num) == True):
                     mat[row+i][col+j] = num
 
     def fillDiagonal():
@@ -82,8 +83,14 @@ class Sudoku:
                 count -= 1
                 self.mat[i][j] = 0
             
-    def checkIfSafe(self, i: int. j: int, num: int) -> bool
+    def checkIfSafe(self, i: int, j: int, num: int) -> bool:
         return (unUsedInRow(i, num) and unUsedInCol(j, num) and unUsedInBox(i - i % self.sqn, i - i % self.sqn, num))
 
-# unUsedInRow
+    def unUsedInRow(self, i: int, j: int, num: int) -> bool:
+        for j in range(self.n):
+            if self.matrix[i][j] == num:
+                return False
+        return True
+
+
 # unUsedInCol
