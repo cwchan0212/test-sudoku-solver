@@ -15,20 +15,26 @@ class Sudoku:
     def __init__(self, n: int, k: int):
         self.n = n
         self.k = k
-        self.sqn = math.sqrt(n)
-        self.mat = [n][n]
+        print (n, k)
+        self.sqn = int(math.sqrt(n))
+        self.matrix = [[0]*n for _ in range(n)]
 
-    def fillBox(row: int, col: int):
+    def fillValues(self):
+        self.fillDiagonal()
+        self.fillRemaining(0, self.sqn)
+        print(self.matrix)
+
+    def fillBox(self, row: int, col: int):
         num = 0;
-        for i in range(len(self.sqn)):
-            for j in range(len(self.sqn)):
+        for i in range(self.sqn):
+            for j in range(self.sqn):
                 num = self.randomGenerator()
-                while (self.unUsedInBox(top, left, num) == True):
-                    mat[row+i][col+j] = num
+                while (self.unUsedInBox(row, col, num) == True):
+                    self.matrix[row+i][col+j] = num
 
-    def fillDiagonal():
-        for i in range(sqn):
-            fillBox(i, i)
+    def fillDiagonal(self):
+        for i in range(self.sqn):
+            self.fillBox(i, i)
 
     def randomGenerator(self) -> int:
         no = [1,2,3,4,5,6,7,8,9]
@@ -37,7 +43,7 @@ class Sudoku:
     def unUsedInBox(self, top: int, left: int, num: int) -> bool:
         for i in range(self.sqn):
             for j in range(self.sqn):
-                if (mat[top+i][left+i] == num):
+                if (self.matrix[top+i][left+i] == num):
                     return False
         return True
 
@@ -79,12 +85,12 @@ class Sudoku:
             j = cellID % 9
             if (j != 0):
                 j -= 1
-            if (self.mat[i][j] != 0):
+            if (self.matrix[i][j] != 0):
                 count -= 1
-                self.mat[i][j] = 0
+                self.matrix[i][j] = 0
             
     def checkIfSafe(self, i: int, j: int, num: int) -> bool:
-        return (unUsedInRow(i, num) and unUsedInCol(j, num) and unUsedInBox(i - i % self.sqn, i - i % self.sqn, num))
+        return (self.unUsedInRow(i, num) and self.unUsedInCol(j, num) and self.unUsedInBox(i - i % self.sqn, i - i % self.sqn, num))
 
     def unUsedInRow(self, i: int, j: int, num: int) -> bool:
         for j in range(self.n):
@@ -92,5 +98,14 @@ class Sudoku:
                 return False
         return True
 
+    def unUsedInCol(self, j: int, num: int):
+        for i in range(self.n):
+            if self.matrix[i][j] == num:
+                return False
+        return True
 
-# unUsedInCol
+
+n = 9
+k = 20
+a = Sudoku(n, k)
+a.fillValues()
