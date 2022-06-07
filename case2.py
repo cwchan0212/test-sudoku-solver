@@ -21,19 +21,21 @@ class Sudoku:
 
     def fillValues(self):
         self.fillDiagonal()
-        self.fillRemaining(0, self.sqn)
-        print(self.matrix)
+        # self.fillRemaining(0, self.sqn)
+        #print(self.matrix)
 
     def fillBox(self, row: int, col: int):
         num = 0;
         for i in range(self.sqn):
             for j in range(self.sqn):
                 num = self.randomGenerator()
+                print("num", num)
                 while (self.unUsedInBox(row, col, num) == True):
                     self.matrix[row+i][col+j] = num
 
     def fillDiagonal(self):
         for i in range(self.sqn):
+            print(self.sqn)
             self.fillBox(i, i)
 
     def randomGenerator(self) -> int:
@@ -88,7 +90,7 @@ class Sudoku:
             if (self.matrix[i][j] != 0):
                 count -= 1
                 self.matrix[i][j] = 0
-            
+
     def checkIfSafe(self, i: int, j: int, num: int) -> bool:
         return (self.unUsedInRow(i, num) and self.unUsedInCol(j, num) and self.unUsedInBox(i - i % self.sqn, i - i % self.sqn, num))
 
