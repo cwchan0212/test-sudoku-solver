@@ -1,6 +1,4 @@
 from os import unsetenv
-from tkinter import N
-from typing import List
 import math
 import random
 import collections
