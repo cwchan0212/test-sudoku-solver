@@ -1,6 +1,6 @@
 from os import unsetenv
-import math
 from typing import List
+import math
 import random
 import collections
 
@@ -27,17 +27,24 @@ class Sudoku:
         num = 0;
         for i in range(self.sqn):
             for j in range(self.sqn):
-                num = self.randomGenerator()
-                print("num", num)
-                while (self.unUsedInBox(row, col, num) == True):
-                    self.matrix[row+i][col+j] = num
+                num = self.randomGenerator(self.n)
+                if (self.unUsedInBox(row, col, num) == True):
+                    self.matrix[row+i][col+j] = num                    
+                # else:
+                #     num = self.randomGenerator(self.n)
+
+                # num = self.randomGenerator(self.n)
+                # while (self.unUsedInBox(row, col, num) == False):
+                #     print("num", num, row+i,col+j)
+                #     self.matrix[row+i][col+j] = num
+        print("end")
 
     def fillDiagonal(self):
         for i in range(self.sqn):
-            print(self.sqn)
+            print(i)
             self.fillBox(i, i)
 
-    def randomGenerator(self) -> int:
+    def randomGenerator(self, n: int) -> int:
         no = [1,2,3,4,5,6,7,8,9]
         return random.choice(no)
 
@@ -99,7 +106,7 @@ class Sudoku:
                 return False
         return True
 
-    def unUsedInCol(self, j: int, num: int):
+    def unUsedInCol(self, j: int, num: int) -> bool:
         for i in range(self.n):
             if self.matrix[i][j] == num:
                 return False
@@ -110,3 +117,6 @@ n = 9
 k = 20
 a = Sudoku(n, k)
 a.fillValues()
+for i in a.matrix:
+    print(i)
+#print(a.matrix)
