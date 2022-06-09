@@ -28,6 +28,7 @@ class Sudoku:
         for i in range(self.sqn):
             for j in range(self.sqn):
                 num = self.randomGenerator(self.n)
+                print(num)
                 if (self.unUsedInBox(row, col, num) == True):
                     self.matrix[row+i][col+j] = num                    
                 # else:
