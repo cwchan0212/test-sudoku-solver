@@ -41,11 +41,11 @@ class Sukodu:
 
         return True
 
-    def spaceCount(self, mat):
+    def spaceCount(self):
         size = 0
-        for i in range(len(mat)):           # row
-            for j in range(len(mat[i])):    # col
-                if mat[i][j] == 0:
+        for i in range(len(self.matrix)):           # row
+            for j in range(len(self.matrix[i])):    # col
+                if self.matrix[i][j] == 0:
                     #print(mat[i][j])
                     size +=1
                 #sq[i][j] = question[i][j]
@@ -54,7 +54,7 @@ class Sukodu:
     def filled(self):
         nums = []
         zCnt  = 0
-        space = self.spaceCount(self.matrix)
+        space = self.spaceCount()
         fillcnt = 0
         if not self.validSudoku():
             return
@@ -153,13 +153,16 @@ class Sukodu:
             
             cntZero = self.countRow(r)
 
-            print(cntZero)
+            #print(cntZero)
             if cntZero >= 0:
                 unRow = self.unUsedInRow(r)
                 cellList = self.unusedInRowGrid(r,c)
                 if len(unRow) and len(cellList):
                     cellListAddr = self.cellListAddr(r, unRow[0], cellList)
-                    print(unRow, cellList, cellListAddr)
+                    #print(unRow[0], cellList, cellListAddr)
+                    #self.matrix[r][c] = unRow[0]
+                    print(cellListAddr[0][0], cellList, self.matrix[r][c])
+                    #self.matrix[r][c], self.matrix[cellListAddr[0][0]] = self.matrix[cellListAddr[0][0]],  self.matrix[r][c]
                     #print(cellListAddr)
             # #print(r, cntZero)
             # if cntZero > 0: 
@@ -178,7 +181,8 @@ class Sukodu:
             #     for i in self.matrix:
             #         print(i)
             #     return
-
+        # for i in range(len(self.matrix)):
+        #     print(i)
 
     def countRow(self, row):
         zcnt = 0
@@ -277,7 +281,7 @@ class Sukodu:
         for i in range(9):
             print(self.matrix[i])
 
-        print("space:", self.spaceCount(self.matrix))
+        print("space:", self.spaceCount())
         # num2 = num1.copy()
         # num3 = num1.copy()
         # num4 = num1.copy()
