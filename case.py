@@ -161,19 +161,22 @@ class Sukodu:
                 cellList = self.unusedInRowGrid(r,c)
                 if len(unRow) and len(cellList):
                     cellListAddr = self.cellListAddr(r, unRow[0], cellList)
+                    print("len cell address", len(cellListAddr), cellListAddr)
                     #print(unRow[0], cellList, cellListAddr)
                     #self.matrix[r][c] = unRow[0]
-                    print(cellListAddr[0][0])
-                    print(cellList)
-                    print(unRow[0])
-                    print(self.matrix[r][c])
+                    if len(cellListAddr) > 0:
+                        print(cellListAddr[0][0])
+                        print(cellList)
+                        print(unRow[0])
+                        print(self.matrix[r][c])
                     # need checking
-                    r1 = cellListAddr[0][1]
-                    c1 = cellListAddr[0][2]
-                    self.matrix[r][c] = unRow[0]
-
-                    self.matrix[r][c], self.matrix[r1][c1] = self.matrix[r1][c1], self.matrix[r][c] 
-
+                        r1 = cellListAddr[0][1]
+                        c1 = cellListAddr[0][2]
+                        self.matrix[r][c] = unRow[0]
+                        self.matrix[r1][c1], self.matrix[r][c] = self.matrix[r][c], self.matrix[r1][c1] 
+                        # self.matrix[r][c], self.matrix[r1][c1] = self.matrix[r1][c1], self.matrix[r][c] 
+                    else:
+                        print("no address")
                     #self.matrix[r][c], self.matrix[cellListAddr[0][0]] = self.matrix[cellListAddr[0][0]],  self.matrix[r][c]
                     #print(cellListAddr)
             # #print(r, cntZero)
@@ -287,7 +290,7 @@ class Sukodu:
     def genSudoku(self):
         num1 = [1,2,3,4,5,6,7,8,9]
         # self.fillDiagonals()
-        self.fit(4)
+        self.fit(6)
         #self.filled()
         print("\n")
         for i in range(9):
