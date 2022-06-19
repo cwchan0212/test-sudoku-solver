@@ -169,7 +169,7 @@ class Sukodu:
                         print(cellList)
                         print(unRow[0])
                         print(self.matrix[r][c])
-                    # need checking
+                    #### need checking
                         r1 = cellListAddr[0][1]
                         c1 = cellListAddr[0][2]
                         self.matrix[r][c] = unRow[0]
@@ -196,8 +196,9 @@ class Sukodu:
             #     for i in self.matrix:
             #         print(i)
             #     return
-        # for i in range(len(self.matrix)):
-        #     print(i)
+        print("------")
+        for i in range(len(self.matrix)):
+            print(self.matrix[i])
 
     def countRow(self, row):
         zcnt = 0
@@ -207,7 +208,6 @@ class Sukodu:
                 if self.matrix[row][c] == 0:
                     zcnt += 1
         return zcnt
-
 
 
     def cellListAddr(self, row: int, num: int, cellList: List, ) -> dict:
@@ -290,7 +290,7 @@ class Sukodu:
     def genSudoku(self):
         num1 = [1,2,3,4,5,6,7,8,9]
         # self.fillDiagonals()
-        self.fit(6)
+        self.fit(2)
         #self.filled()
         print("\n")
         for i in range(9):
